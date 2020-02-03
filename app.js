@@ -66,10 +66,19 @@ new Vue({
       this.tileLayer = L.tileLayer(
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png",
         {
-          maxZoom: 18
+          maxZoom: 18,
+          attribution:
+            '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors | Made for <a href="https://twitter.com/paulotijero">@paulotijero</a>'
         }
-      );
-      this.tileLayer.addTo(this.map);
+      ).addTo(this.map);
+      this.circle = L.circle([38.63, -90.23], {
+        color: "red",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+        radius: 500
+      }).addTo(this.map);
+      this.marker = L.marker([38.63, -90.23]).addTo(this.map);
+      this.marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
     },
     initLayers() {
       this.layers.forEach(layer => {
