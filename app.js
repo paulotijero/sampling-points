@@ -11,7 +11,6 @@ new Vue({
         features: [
           {
             id: 0,
-            name: "City of St. Louis",
             type: "polygon",
             coords: [
               [38.770547, -90.168056],
@@ -59,6 +58,7 @@ new Vue({
   mounted() {
     this.initMap();
     this.initLayers();
+    this.addMarkers();
   },
   methods: {
     initMap() {
@@ -71,14 +71,6 @@ new Vue({
             '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors | Made for <a href="https://twitter.com/paulotijero">@paulotijero</a>'
         }
       ).addTo(this.map);
-      this.circle = L.circle([38.63, -90.23], {
-        color: "red",
-        fillColor: "#f03",
-        fillOpacity: 0.5,
-        radius: 500
-      }).addTo(this.map);
-      this.marker = L.marker([38.63, -90.23]).addTo(this.map);
-      this.marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
     },
     initLayers() {
       this.layers.forEach(layer => {
@@ -93,6 +85,18 @@ new Vue({
           feature.leafletObject.addTo(this.map);
         });
       });
+    },
+    addMarkers() {
+      this.circle = L.circle([38.63, -90.23], {
+        color: "red",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+        radius: 500
+      }).addTo(this.map);
+      this.marker = L.marker([38.63, -90.23]).addTo(this.map);
+      this.marker.bindPopup(
+        "<div class='container-popup'><div class='values-popup'><div><label style='margin-right: .5em;'>Muestras</label><input value='1' class='input-value' type='number'/></div><div><label style='margin-right: .5em;'>Radio(m)</label><input value='500' class='input-value' type='number'/></div></div><svg class='svg'><use xlink:href='#trash'></svg></div>"
+      );
     }
   }
 });
